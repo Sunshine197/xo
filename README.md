@@ -1,6 +1,6 @@
 # Clone the repository
 git clone https://github.com/Sunshine197/xo.git
-cd repository
+cd xo
 
 # Checkout the master branch
 git checkout master
