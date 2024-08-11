@@ -15,6 +15,7 @@ board = [
 ]
 
 
+# This function is used to make a move on the board
 def move(x, y, symbol):
     if 0 <= x < 3 and 0 <= y < 3 and board[x][y] == '-':
         board[x][y] = symbol
