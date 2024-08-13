@@ -15,3 +15,8 @@ class TestXOBoard(unittest.TestCase):
         XO_board.move(0, 0, 'X')
         message = XO_board.move(0, 0, 'O')
         self.assertEqual(message, False)
+
+    def test_x_wins(self):
+        XO_board.board = [['X','X','X'], ['-', '-', '-'], ['-','-','-']]
+        result = XO_board.what_is_the_game_state()
+        self.assertEqual(XO_board.GameState.X_WON, result)
