@@ -7,41 +7,34 @@ class GameState(enum.Enum):
     DRAW = 3
     IN_PROGRESS = 4
 
+board = [['-', '-', '-'],
+         ['-', '-', '-'],
+         ['-', '-', '-']]
 
-board = [
-    ['-', '-', '-'],
-    ['-', '-', '-'],
-    ['-', '-', '-']
-]
+def move(x, y, player):
+    if x < 0 or x > 2 or y < 0 or y > 2:
+        return False
 
-
-# This function is used to make a move on the board
-def move(x, y, symbol):
-    if 0 <= x < 3 and 0 <= y < 3 and board[x][y] == '-':
-        board[x][y] = symbol
-        return True
-    return False
-
+    board[x][y] = player
+    return True
 
 def what_is_the_game_state():
-    # Check if someone won in the rows
     for i in range(3):
-        if board[i][0] == board[i][1] == board[i][2] and board[i][0] != '-':
-            return GameState.X_WON if board[i][0] == 'X' else GameState.O_WON
-
-    # Check if someone won in the columns
-    for i in range(3):
+        # check rows
         if board[0][i] == board[1][i] == board[2][i] and board[0][i] != '-':
-            return GameState.X_WON if board[0][i] == 'X' else GameState.O_WON
+            return 1 if board == 'X' else 2
 
-    if board[0][0] == board[1][1] == board[2][2] and board[0][0] != '-':
-        return GameState.X_WON if board[0][0] == 'X' else GameState.O_WON
-    if board[0][2] == board[1][1] == board[2][0] and board[0][2] != '-':
-        return GameState.X_WON if board[0][2] == 'X' else GameState.O_WON
+        # check columns
+        elif board[i][0] == board[i][1] == board[i][2] and board[i][0] != '-':
+            return 1 if board == 'X' else 2
 
-    return GameState.IN_PROGRESS
+        # check diagonals
+        elif board[i][i] == board[i][i + 1] == board[i][i + 2] and board[i][i] != '-':
+            return 1 if board == 'X' else 2
 
+        # check draw
+        if "-" not in board:
+            return 3
 
-def __print_board():
-    for row in board:
-        print(' '.join(row))
+        else:
+            return 4
